@@ -6,12 +6,12 @@
 
 #define OPEN 0
 #define AMOUNT 1
-#define MIN_ACC 901
-#define MAX_ACC 950
+#define MIN_ACCOUNT 901
+#define MAX_ACCOUNT 950
 
 double accounts[ROWS][COLUMNS] = {{0},{0}};
 
-double print2Digits(double num)
+double set2Digits(double num)
 {
 	num = (int)(num * 100) / 100.;
 	return num;
@@ -37,9 +37,9 @@ void openAccount()
 				else
 				{
 					accounts[i][OPEN] = 1;
-					accounts[i][AMOUNT] = print2Digits(amount);
+					accounts[i][AMOUNT] = set2Digits(amount);
 
-					printf("New account number is: %d \n", MIN_ACC + i);
+					printf("New account number is: %d \n", MIN_ACCOUNT + i);
 				}
 			}
 			else
@@ -55,34 +55,32 @@ void openAccount()
 	}
 }
 
-void printBalanceInquiry(int account_index)
+void printBalanceInquiry(int acc_index)
 {
 	printf("The balance of account number %d is: %0.2lf\n",
-	 MIN_ACC + account_index, accounts[account_index][AMOUNT]);
+	 MIN_ACCOUNT + acc_index, accounts[acc_index][AMOUNT]);
 }
 
 void balanceInquiry()
 {
-
-	int account_number = 0;
+	int acc_num = 0;
 	printf("Please enter account number: ");
-	if (scanf("%d", &account_number) == 1)
+	if (scanf("%d", &acc_num) == 1)
 	{
-
-		if (account_number < MIN_ACC || account_number > MAX_ACC)
+		if (acc_num < MIN_ACCOUNT || acc_num > MAX_ACCOUNT)
 		{
 			printf("Invalid account number\n");
 		}
 		else
 		{
-			account_number = account_number - MIN_ACC;
-			if (accounts[account_number][OPEN] == 0)
+			acc_num -= MIN_ACCOUNT;
+			if (accounts[acc_num][OPEN] == 0)
 			{
 				printf("This account is closed\n");
 			}
 			else
 			{
-				printBalanceInquiry(account_number);
+				printBalanceInquiry(acc_num);
 			}
 		}
 	}
@@ -94,19 +92,19 @@ void balanceInquiry()
 
 void deposit()
 {
-	int account_number = 0;
+	int acc_num = 0;
 	printf("Please enter account number: ");
-	if (scanf("%d", &account_number) == 1)
+	if (scanf("%d", &acc_num) == 1)
 	{
 
-		if (account_number < MIN_ACC || account_number > MAX_ACC)
+		if (acc_num > MAX_ACCOUNT || acc_num < MIN_ACCOUNT)
 		{
 			printf("Invalid account number\n");
 		}
 		else
 		{
-			account_number = account_number - MIN_ACC;
-			if (accounts[account_number][OPEN] == 0)
+			acc_num -= MIN_ACCOUNT;
+			if (accounts[acc_num][OPEN] == 0)
 			{
 				printf("This account is closed\n");
 			}
@@ -118,8 +116,8 @@ void deposit()
 				{
 					if (amount > 0)
 					{
-						accounts[account_number][AMOUNT] += print2Digits(amount);
-						printf("The new balance is: %0.2lf\n", accounts[account_number][AMOUNT]);
+						accounts[acc_num][AMOUNT] += set2Digits(amount);
+						printf("The new balance is: %0.2lf\n", accounts[acc_num][AMOUNT]);
 					}
 					else
 					{
@@ -142,19 +140,19 @@ void deposit()
 void withdrawal()
 {
 
-	int account_number = 0;
+	int acc_num = 0;
 	printf("Please enter account number: ");
-	if (scanf("%d", &account_number) == 1)
+	if (scanf("%d", &acc_num) == 1)
 	{
 
-		if (account_number < MIN_ACC || account_number > MAX_ACC)
+		if (acc_num > MAX_ACCOUNT || acc_num < MIN_ACCOUNT)
 		{
 			printf("Invalid account number\n");
 		}
 		else
 		{
-			account_number = account_number - MIN_ACC;
-			if (accounts[account_number][OPEN] == 0)
+			acc_num -= MIN_ACCOUNT;
+			if (accounts[acc_num][OPEN] == 0)
 			{
 				printf("This account is closed\n");
 			}
@@ -164,11 +162,11 @@ void withdrawal()
 				printf("Please enter the amount to withdraw: ");
 				if (scanf("%lf", &amount) == 1)
 				{
-					amount = accounts[account_number][AMOUNT] - amount;
+					amount = accounts[acc_num][AMOUNT] - amount;
 					if (amount >= 0)
 					{
-						accounts[account_number][AMOUNT] = print2Digits(amount);
-						printf("The new balance is: %0.2lf\n", accounts[account_number][AMOUNT]);
+						accounts[acc_num][AMOUNT] = set2Digits(amount);
+						printf("The new balance is: %0.2lf\n", accounts[acc_num][AMOUNT]);
 					}
 					else
 					{
@@ -188,34 +186,34 @@ void withdrawal()
 	}
 }
 
-void activateCloseAccount(int account_index)
+void doCloseAccount(int acc_index)
 {
-	accounts[account_index][OPEN] = 0;
-	accounts[account_index][AMOUNT] = 0;
+	accounts[acc_index][OPEN] = 0;
+	accounts[acc_index][AMOUNT] = 0;
 }
 
 void closeAccount()
 {
-	int account_number = 0;
+	int acc_num = 0;
 	printf("Please enter account number: ");
-	if (scanf("%d", &account_number) == 1)
+	if (scanf("%d", &acc_num) == 1)
 	{
 
-		if (account_number < MIN_ACC || account_number > MAX_ACC)
+		if (acc_num > MAX_ACCOUNT || acc_num < MIN_ACCOUNT)
 		{
 			printf("Invalid account number\n");
 		}
 		else
 		{
-			int account_index = account_number - MIN_ACC;
-			if (accounts[account_index][OPEN] == 0)
+			int acc_index = acc_num - MIN_ACCOUNT;
+			if (accounts[acc_index][OPEN] == 0)
 			{
 				printf("This account is already closed\n");
 			}
 			else
 			{
-				activateCloseAccount(account_index);
-				printf("Closed account number %d\n", account_number);
+				doCloseAccount(acc_index);
+				printf("Closed account number %d\n", acc_num);
 			}
 		}
 	}
@@ -243,7 +241,7 @@ void interest()
 				if (accounts[i][OPEN] == 1)
 				{
 					accounts[i][AMOUNT] *= 1 + (interest_rate / 100.);
-					accounts[i][AMOUNT] = print2Digits(accounts[i][AMOUNT]);
+					accounts[i][AMOUNT] = set2Digits(accounts[i][AMOUNT]);
 				}
 			}
 		}
@@ -269,6 +267,6 @@ void exitAndClose()
 {
 	for (int i = 0; i < ROWS; i++)
 	{
-		activateCloseAccount(i);
+		doCloseAccount(i);
 	}
 }

@@ -5,7 +5,7 @@ void openAccount();
 void balanceInquiry();
 void deposit();
 void withdrawal();
-void closeAccount();
+void doCloseAccount();
 void interest();
 void print();
 void exitAndClose();
