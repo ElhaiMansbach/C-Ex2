@@ -9,7 +9,12 @@ int main(){
 		
 	while(!exit){
 		printf("\nPlease choose a transaction type:\n");
-		printf(" O-Open Account\n B-Balance Inquiry\n D-Deposit\n W-Withdrawal\n C-Close Account\n I-Interest\n P-Print\n E-Exit\n");
+		printf("B-Balance Inquiry\n");
+		printf("D-Deposit\n W-Withdrawal\n");
+		printf("C-Close Account\n");
+		printf("I-Interest\n");
+		printf("P-Print\n");
+		printf("E-Exit\n");
 		if(scanf(" %c", &transaction_type) != 1){
 			printf("Failed to read the transaction type\n");
 		}
