@@ -4,7 +4,7 @@
 
 int main(){
 
-	char options=' ';
+	char options = ' ';
 	int exit = 0;
 		
 	while(!exit){
