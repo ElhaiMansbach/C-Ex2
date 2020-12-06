@@ -4,23 +4,25 @@
 
 int main(){
 
-	char transaction_type=' ';
+	char options=' ';
 	int exit = 0;
 		
 	while(!exit){
 		printf("\nPlease choose a transaction type:\n");
+		printf("O-Open Account\n");
 		printf("B-Balance Inquiry\n");
-		printf("D-Deposit\n W-Withdrawal\n");
+		printf("D-Deposit\n");
+		printf("W-Withdrawal\n");
 		printf("C-Close Account\n");
 		printf("I-Interest\n");
 		printf("P-Print\n");
 		printf("E-Exit\n");
-		if(scanf(" %c", &transaction_type) != 1){
+		if(scanf(" %c", &options) != 1){
 			printf("Failed to read the transaction type\n");
 		}
 		else{
 
-			switch (transaction_type) {
+			switch (options) {
 
 			case 'O':
 				openAccount();

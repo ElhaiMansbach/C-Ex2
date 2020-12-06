@@ -11,12 +11,18 @@
 
 double accounts[ROWS][COLUMNS] = {{0},{0}};
 
+/*
+Auxiliary function that round the number to at most 2 decimal places.
+*/
 double set2Digits(double num)
 {
 	num = (int)(num * 100) / 100.;
 	return num;
 }
-
+/*
+Method that opens an account and saves an initial deposit amount, prints the new account number.
+Opening an account is only possible if there are less than 50 open accounts.
+*/
 void openAccount()
 {
 
@@ -54,13 +60,18 @@ void openAccount()
 		printf("Sorry, there is no room for more accounts\n");
 	}
 }
-
+/*
+Auxiliary function that gets the account number and prints the balance.
+*/
 void printBalanceInquiry(int acc_index)
 {
 	printf("The balance of account number %d is: %0.2lf\n",
 	 MIN_ACCOUNT + acc_index, accounts[acc_index][AMOUNT]);
 }
-
+/*
+Method that checks the balance, gets the account number and prints the balance.
+This is only allowed if the account is open.
+*/
 void balanceInquiry()
 {
 	int acc_num = 0;
@@ -89,7 +100,10 @@ void balanceInquiry()
 		printf("Failed to read the account number\n");
 	}
 }
-
+/*
+Method that accepts the account number and prints the new balance.
+This is only allowed if the account is open.
+*/
 void deposit()
 {
 	int acc_num = 0;
@@ -136,15 +150,16 @@ void deposit()
 		printf("Failed to read the account number\n");
 	}
 }
-
+/*
+Method that accepts the account number and prints the new balance.
+This is only allowed if the account is open and existing enough cash to withdraw.
+*/
 void withdrawal()
 {
-
 	int acc_num = 0;
 	printf("Please enter account number: ");
 	if (scanf("%d", &acc_num) == 1)
 	{
-
 		if (acc_num > MAX_ACCOUNT || acc_num < MIN_ACCOUNT)
 		{
 			printf("Invalid account number\n");
@@ -185,13 +200,18 @@ void withdrawal()
 		printf("Failed to read the account number\n");
 	}
 }
-
+/*
+Auxiliary function that closes the account.
+*/
 void doCloseAccount(int acc_index)
 {
 	accounts[acc_index][OPEN] = 0;
 	accounts[acc_index][AMOUNT] = 0;
 }
-
+/*
+Method that closes the account.
+Only allowed if the account is open.
+*/
 void closeAccount()
 {
 	int acc_num = 0;
@@ -222,7 +242,9 @@ void closeAccount()
 		printf("Failed to read the account number\n");
 	}
 }
-
+/*
+Method that adds interest at a given percentage rate to all accounts open.
+*/
 void interest()
 {
 	int interest_rate = 0;
@@ -251,7 +273,9 @@ void interest()
 		printf("Failed to read the interest rate\n");
 	}
 }
-
+/*
+Method that prints all open accounts and the balance in them.
+*/
 void print()
 {
 	for (int i = 0; i < ROWS; i++)
@@ -262,7 +286,9 @@ void print()
 		}
 	}
 }
-
+/*
+Method that closes all accounts and exits the program.
+*/
 void exitAndClose()
 {
 	for (int i = 0; i < ROWS; i++)
